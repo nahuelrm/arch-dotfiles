@@ -51,6 +51,9 @@ yes '' | yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-sudo-git
 mkdir -p "$HOME/.zsh"
 git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
+sudo mkdir -p /root/.zsh
+sudo git clone https://github.com/sindresorhus/pure.git /root/.zsh/pure
+
 sudo usermod --shell /usr/bin/zsh $user
 sudo usermod --shell /usr/bin/zsh root
 

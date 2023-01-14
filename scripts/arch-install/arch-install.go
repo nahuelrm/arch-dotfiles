@@ -33,26 +33,49 @@ func main() {
 	command = "(echo 'g'; sleep 0.3; echo 'n'; sleep 0.3; echo ''; sleep 0.3; echo ''; sleep 0.3; echo '+550M'; sleep 0.3; echo 'n'; sleep 0.3; echo ''; sleep 0.3; echo''; sleep 0.3; echo '+" + swapSize + "'; sleep 0.3; echo 'n'; sleep 0.3; echo ''; sleep 0.3; echo ''; sleep 0.3; echo ''; sleep 0.3; echo 't'; sleep 0.3; echo '1'; sleep 0.3; echo '1'; sleep 0.3; echo 't'; sleep 0.3; echo '2'; sleep 0.3; echo '19'; sleep 0.3; echo 'w') | fdisk -W always " + diskName
 	runCommand(command)
 
-	command = "mkfs.ext4 " + diskName + "3"
-	runCommand(command)
+	if strings.Contains(diskName, "/sd") {
+		command = "mkfs.ext4 " + diskName + "3"
+		runCommand(command)
 
-	command = "mkswap " + diskName + "2"
-	runCommand(command)
+		command = "mkswap " + diskName + "2"
+		runCommand(command)
 
-	command = "swapon " + diskName + "2"
-	runCommand(command)
+		command = "swapon " + diskName + "2"
+		runCommand(command)
 
-	command = "mkfs.vfat -F32 " + diskName + "1"
-	runCommand(command)
+		command = "mkfs.vfat -F32 " + diskName + "1"
+		runCommand(command)
 
-	command = "mount " + diskName + "3 /mnt"
-	runCommand(command)
+		command = "mount " + diskName + "3 /mnt"
+		runCommand(command)
 
-	command = "mkdir /mnt/boot"
-	runCommand(command)
+		command = "mkdir /mnt/boot"
+		runCommand(command)
 
-	command = "mount " + diskName + "1 /mnt/boot"
-	runCommand(command)
+		command = "mount " + diskName + "1 /mnt/boot"
+		runCommand(command)
+	} else {
+		command = "mkfs.ext4 " + diskName + "p3"
+		runCommand(command)
+
+		command = "mkswap " + diskName + "p2"
+		runCommand(command)
+
+		command = "swapon " + diskName + "p2"
+		runCommand(command)
+
+		command = "mkfs.vfat -F32 " + diskName + "p1"
+		runCommand(command)
+
+		command = "mount " + diskName + "p3 /mnt"
+		runCommand(command)
+
+		command = "mkdir /mnt/boot"
+		runCommand(command)
+
+		command = "mount " + diskName + "p1 /mnt/boot"
+		runCommand(command)
+	}
 
 	// Pacman keys validity setup
 	command = "pacman-key --init"
