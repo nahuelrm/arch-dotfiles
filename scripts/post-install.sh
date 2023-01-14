@@ -36,7 +36,7 @@ function restore_all(){
 	user=$1
 	sudo mv /home/$user/.bashrc.bak /home/$user/.bashrc
 	sudo mv /root/getty@.service.bak /usr/lib/systemd/system/getty@.service
-	yes '' | sudo rm -fr /home/$user/entorno
+	yes '' | sudo rm -fr /home/$user/arch-dotfiles
 	sudo mv /etc/sudoers.bak /etc/sudoers
 }
 
@@ -136,21 +136,21 @@ if [ "$automatic" != true ]; then
 fi
 if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	clear; echo -e "${greenColor}[*] Setting up dotfiles...${endColor}"
-	git clone https://github.com/nahuelrm/entorno ~/Desktop/$user/repos/entorno
+	git clone https://github.com/nahuelrm/arch-dotfiles ~/Desktop/$user/repos/arch-dotfiles
 
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/nvim ~/.config
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/picom ~/.config
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/ranger ~/.config
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/sxhkd ~/.config
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/bspwm ~/.config
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/polybar ~/.config
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/kitty ~/.config
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/clipit ~/.config
-	cp -r ~/Desktop/$user/repos/entorno/dotfiles/neofetch ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/nvim ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/picom ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/ranger ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/sxhkd ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/bspwm ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/polybar ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/kitty ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/clipit ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/neofetch ~/.config
 
-	cp ~/Desktop/$user/repos/entorno/dotfiles/.zshrc ~/.zshrc
-	cp -r ~/Desktop/$user/repos/entorno/wallpapers ~/Desktop/
-	sudo cp ~/Desktop/$user/repos/entorno/dotfiles/custom.conf /etc/gdm/custom.conf
+	cp ~/Desktop/$user/repos/arch-dotfiles/dotfiles/.zshrc ~/.zshrc
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/wallpapers ~/Desktop/
+	sudo cp ~/Desktop/$user/repos/arch-dotfiles/dotfiles/custom.conf /etc/gdm/custom.conf
 
 	sudo chmod 755 ~/.config/bspwm/bspwmrc
 	sudo chmod 644 ~/.config/sxhkd/sxhkdrc
@@ -165,7 +165,7 @@ if [[ $response =~ [yY] ]] || [ -z $response ]; then
 
 	mkdir -p /home/$user/Downloads/firefox /home/$user/Documentos /home/$user/tests 2>/dev/null
 
-	sudo cp "/home/$user/Desktop/$user/repos/entorno/dotfiles/gdm" "/var/lib/AccountsService/users/$user"
+	sudo cp "/home/$user/Desktop/$user/repos/arch-dotfiles/dotfiles/gdm" "/var/lib/AccountsService/users/$user"
 	sudo chown root:root "/var/lib/AccountsService/users/$user"
 	sudo chmod 600 "/var/lib/AccountsService/users/$user"
 
@@ -173,7 +173,7 @@ if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	replace_text "/home/$user/.zshrc" stderr $user
 	replace_text "/home/$user/.config/polybar/scripts/target.sh" stderr $user
 
-	cp ~/Desktop/$user/repos/entorno/dotfiles/final-setup.sh ~/final-setup.sh
+	cp ~/Desktop/$user/repos/arch-dotfiles/dotfiles/final-setup.sh ~/final-setup.sh
 	chmod +x ~/final-setup.sh
 	sleep 1
 fi
@@ -246,10 +246,10 @@ if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	echo -e "${greenColor}[*] Setting up some extra features...${endColor}"
 
 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-	cp ~/Desktop/$user/repos/entorno/dotfiles/.p10k.zsh ~/.p10k.zsh
+	cp ~/Desktop/$user/repos/arch-dotfiles/dotfiles/.p10k.zsh ~/.p10k.zsh
 
 	sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
-	sudo cp ~/Desktop/$user/repos/entorno/dotfiles/.root-p10k.zsh /root/.p10k.zsh  
+	sudo cp ~/Desktop/$user/repos/arch-dotfiles/dotfiles/.root-p10k.zsh /root/.p10k.zsh  
 
 	sudo usermod --shell /usr/bin/zsh root
 

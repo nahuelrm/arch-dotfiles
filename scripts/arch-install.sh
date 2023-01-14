@@ -114,7 +114,7 @@ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=$bootload
 grub-mkconfig -o /boot/grub/grub.cfg
 
 if [ $1 == true ]; then
-	git clone https://github.com/nahuelrm/entorno /home/$user/entorno
+	git clone https://github.com/nahuelrm/arch-dotfiles /home/$user/arch-dotfiles
 fi
 
 systemctl enable NetworkManager
