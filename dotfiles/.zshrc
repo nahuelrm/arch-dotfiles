@@ -2,24 +2,21 @@
 export _JAVA_AWT_WM_NONREPARENTING=1
 export AWT_TOOLKIT=MToolkit
 
-fpath+=($HOME/.zsh/pure)
+# Enable Powerlevel10k instant prompt. Should stay at the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Set up the prompt
-autoload -U promptinit; promptinit
 
-# optionally define some options
-PURE_CMD_MAX_EXEC_TIME=10
-
-zstyle :prompt:pure:path color blue
-
-zstyle ':prompt:pure:prompt:success' color '#ebcb8b' 
-zstyle ':prompt:pure:prompt:error' color '#bf616a' 
-
-zstyle :prompt:pure:git:stash show yes
-
-prompt pure 
+autoload -Uz promptinit
+promptinit
+prompt adam1
 
 setopt histignorealldups sharehistory
+
+# Use emacs keybindings even if our EDITOR is set to vi
+bindkey -e
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -29,6 +26,7 @@ HISTFILE=~/.zsh_history
 # Use modern completion system
 autoload -Uz compinit
 compinit
+
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -47,11 +45,11 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# =================================================
-# Manual configuration
-# =================================================
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-## TODO: view path
+# Manual configuration
+
 PATH=/root/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/go/bin:/home/stderr/.local/bin:/home/stderr/go/bin
 
 # Manual aliases
@@ -63,6 +61,8 @@ alias ls='lsd --group-dirs=first'
 alias cat='bat'
 alias catn='/bin/cat'
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Plugins
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -71,14 +71,13 @@ source /usr/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
 # Functions
 
 function mkt(){
-        mkdir {nmap,content,exploits,scripts}
+	mkdir {nmap,content,exploits,scripts}
 }
 
-function history-clear() {
+function hclear() {
     echo "" > ~/.zsh_history
 }
 
-## TODO: View
 function settarget(){
     ip_address=$1
     machine_name=$2
@@ -87,14 +86,14 @@ function settarget(){
 
 # Extract nmap information
 function extractPorts(){
-        ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
-        ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
-        echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
-        echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
-        echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
-        echo $ports | tr -d '\n' | xclip -sel clip
-        echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
-        cat extractPorts.tmp; rm extractPorts.tmp
+	ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
+	ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
+	echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
+	echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
+	echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
+	echo $ports | tr -d '\n' | xclip -sel clip
+	echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
+	cat extractPorts.tmp; rm extractPorts.tmp
 }
 
 # Set 'man' colors
@@ -111,21 +110,44 @@ function man() {
 }
 
 function lastmod() {
-        difference_seconds=$(($(date +%s) - $(date -d "$(stat -c %y $1)" +%s))); echo -e "The file $1, was been modified \e[0;33m\033[1m$difference_seconds\033[0m\e[0m seconds ago."
+	difference_seconds=$(($(date +%s) - $(date -d "$(stat -c %y $1)" +%s))); echo -e "The file $1, was been modified \e[0;33m\033[1m$difference_seconds\033[0m\e[0m seconds ago."
 }
 
-function crtsh() {
-        curl -s "https://crt.sh/?q=%25.$1" | grep ">*.$1" | sed 's/<[/]*[TB][DR]>/\n/g' | grep -vE "<|^[\*]*[\.]*$1" | sort -u | awk 'NF'
+function crt() {
+	curl -s "https://crt.sh/?q=%25.$1" | grep ">*.$1" | sed 's/<[/]*[TB][DR]>/\n/g' | grep -vE "<|^[\*]*[\.]*$1" | sort -u | awk 'NF'
+}
+
+# fzf improvement
+function fzf-lovely(){
+
+	if [ "$1" = "h" ]; then
+		fzf -m --reverse --preview-window down:20 --preview '[[ $(file --mime {}) =~ binary ]] &&
+ 	                echo {} is a binary file ||
+	                 (bat --style=numbers --color=always {} ||
+	                  highlight -O ansi -l {} ||
+	                  coderay {} ||
+	                  rougify {} ||
+	                  cat {}) 2> /dev/null | head -500'
+
+	else
+	        fzf -m --preview '[[ $(file --mime {}) =~ binary ]] &&
+	                         echo {} is a binary file ||
+	                         (bat --style=numbers --color=always {} ||
+	                          highlight -O ansi -l {} ||
+	                          coderay {} ||
+	                          rougify {} ||
+	                          cat {}) 2> /dev/null | head -500'
+	fi
 }
 
 function rmk(){
-        scrub -p dod $1
-        shred -zun 10 -v $1
+	scrub -p dod $1
+	shred -zun 10 -v $1
 }
 
-# Binds
-
-bindkey -e # use emacs keybindings if our EDITOR is set to vi
+# Finalize Powerlevel10k instant prompt. Should stay at the bottom of ~/.zshrc.
+(( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
@@ -144,4 +166,3 @@ bindkey "^[[3;5~" delete-word
 
 export EDITOR=nvim;
 export VISUAL=nvim;
-
