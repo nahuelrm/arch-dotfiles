@@ -90,7 +90,7 @@ if [ "$automatic" != true ]; then
 fi
 if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	clear; echo -e "${greenColor}[*] Installing more packages...${endColor}"
-	yes '' | sudo pacman -S xorg xorg-server xorg-xinit firefox pavucontrol pulseaudio ranger bspwm sxhkd rofi flameshot feh picom kitty git xclip wget p7zip zip unzip pacman-contrib neofetch htop gcc nautilus udisks2 firejail discord obs-studio libreoffice vlc code gdm zsh linux-headers v4l2loopback-dkms locate lsd bat mdcat jdk11-openjdk jq tree arch-install-scripts net-tools
+	yes '' | sudo pacman -S xorg xorg-server xorg-xinit firefox pavucontrol pulseaudio ranger bspwm sxhkd rofi flameshot feh picom kitty git xclip wget p7zip zip unzip pacman-contrib neofetch htop gcc nautilus udisks2 firejail discord obs-studio libreoffice vlc code gdm zsh linux-headers v4l2loopback-dkms locate lsd bat mdcat jdk11-openjdk jq tree arch-install-scripts net-tools npm
 	sudo systemctl enable gdm
 
 	curl -Ls https://go.dev/dl/go1.19.5.linux-amd64.tar.gz -o /tmp/go1.19.5.linux-amd64.tar.gz
@@ -210,7 +210,8 @@ if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	yes '' | sudo ~/Desktop/$user/repos/blackarch/./strap.sh
 
 	yes '' | sudo pacman -S openvpn netcat nmap socat dnsutils aircrack-ng nikto gobuster wpscan hashcat john hydra smtp-user-enum nfs-utils smbclient enum4linux hexedit xxd nfs-utils whatweb ffuf whois traceroute inetutils php binwalk xf86-video-vmware steghide smbmap sqlmap arp-scan
-	yes '' | yay -S exploit-db-git
+
+	# TODO: Install searchsploit
 	sleep 1
 
 
