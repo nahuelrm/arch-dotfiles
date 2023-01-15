@@ -123,9 +123,10 @@ if [ "$automatic" != true ]; then
 fi
 if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	clear; echo -e "${greenColor}[*] Installing fonts and dependencies...${endColor}"
+	yes '' | pacman -S ttf-hack-nerd
+	
 	yes '' | yay -S polybar scrub clipit betterlockscreen nerd-fonts-jetbrains-mono ttf-iosevka
 
-	yes '' | pacman -S ttf-hack-nerd
 	sleep 1
 fi
 
@@ -237,10 +238,7 @@ fi
 if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	clear; echo -e "${greenColor}[*] Setting up zsh...${endColor}"
 	sudo usermod --shell /usr/bin/zsh $user
-	yes '' | yay -S zsh-syntax-highlighting zsh-autosuggestions
-	sudo mkdir /usr/share/zsh-sudo
-	sudo chown $user:$user /usr/share/zsh-sudo
-	wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh -O /usr/share/zsh-sudo/sudo.plugin.zsh
+	yes '' | yay -S zsh-syntax-highlighting zsh-autosuggestions zsh-sudo-git
 
 	# powerLevel10k
 	
