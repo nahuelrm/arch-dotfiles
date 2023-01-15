@@ -148,6 +148,7 @@ if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/kitty ~/.config
 	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/clipit ~/.config
 	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/neofetch ~/.config
+	cp -r ~/Desktop/$user/repos/arch-dotfiles/dotfiles/rofi ~/.config
 
 	cp ~/Desktop/$user/repos/arch-dotfiles/dotfiles/.zshrc ~/.zshrc
 	cp -r ~/Desktop/$user/repos/arch-dotfiles/wallpapers ~/Desktop/
