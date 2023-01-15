@@ -6,6 +6,10 @@ sudo pacman -S $packages
 
 # Other tools 
 
+sudo git clone https://github.com/nahuelrm/wordlists /usr/share/wordlists/wordlists
+
+git clone https://github.com/nahuelrm/vpn ~/Desktop/stderr/repos/vpn; sudo cp ~/Desktop/stderr/repos/vpn/vpn /bin/vpn; sudo vpn --install
+
 git clone https://github.com/nahuelrm/crtsh ~/Desktop/stderr/repos/crtsh; cd ~/Desktop/stderr/repos/crtsh; ./install.sh; cd 
 
 git clone https://github.com/nahuelrm/BugBountyNotes ~/Documentos/BugBountyNotes
