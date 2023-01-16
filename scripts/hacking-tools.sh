@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages="httprobe amass findomain sublist3r subfinder nuclei gospider gowitness jq htmlq assetfinder"
+packages="httprobe amass findomain sublist3r subfinder nuclei gospider gowitness jq htmlq assetfinder feroxbuster ffuf"
 
 sudo pacman -S $packages
 
