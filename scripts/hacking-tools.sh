@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages="httprobe amass findomain sublist3r subfinder nuclei gospider gowitness jq htmlq assetfinder feroxbuster ffuf"
+packages="httprobe amass findomain sublist3r subfinder nuclei gospider gowitness jq htmlq assetfinder feroxbuster ffuf massscan gau waybackurls"
 
 sudo pacman -S $packages
 
@@ -27,7 +27,14 @@ alias xnlinkfinder='python3 /home/stderr/Desktop/stderr/repos/xnLinkFinder/xnLin
 
 sudo wget https://raw.githubusercontent.com/nahuelrm/web-screenshot/main/web-screenshot.sh -O /bin/web-screenshot && sudo chmod +x /bin/web-screenshot
 
+# More tools:
+# waymore
+
 go install github.com/nahuelrm/goxy@latest
+
+go install github.com/nahuelrm/slice@latest
+
+go install github.com/tomnomnom/unfurl@latest
 
 mkdir ~/.gf 2>/dev/null
 git clone https://github.com/tomnomnom/gf /tmp/gf
@@ -38,3 +45,7 @@ sudo ln -sf ~/.gf /root/.gf
 go install github.com/tomnomnom/gf@latest
 
 go install github.com/tomnomnom/anew@latest
+
+go install github.com/ameenmaali/wordlistgen@latest
+
+
