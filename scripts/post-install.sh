@@ -212,7 +212,7 @@ if [[ $response =~ [yY] ]] || [ -z $response ]; then
 	chmod +x ~/Desktop/$user/repos/blackarch/strap.sh
 	yes '' | sudo ~/Desktop/$user/repos/blackarch/./strap.sh
 
-	yes '' | sudo pacman -S openvpn netcat nmap socat dnsutils aircrack-ng nikto gobuster wpscan hashcat john hydra smtp-user-enum nfs-utils smbclient enum4linux hexedit xxd nfs-utils whatweb ffuf whois traceroute inetutils php binwalk xf86-video-vmware steghide smbmap sqlmap arp-scan exploitdb
+	yes '' | sudo pacman -S openvpn netcat nmap socat dnsutils aircrack-ng nikto gobuster wpscan hashcat john hydra smtp-user-enum nfs-utils smbclient enum4linux hexedit xxd nfs-utils whatweb ffuf whois traceroute inetutils php binwalk steghide smbmap sqlmap arp-scan exploitdb
 
 	# TODO: Install searchsploit
 	sleep 1
