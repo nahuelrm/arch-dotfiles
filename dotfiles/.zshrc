@@ -84,6 +84,38 @@ function settarget(){
     echo "$ip_address $machine_name" > /home/stderr/.config/polybar/scripts/target
 }
 
+function mkd() {
+	mkdir notes recon scope 2>/dev/null
+	echo -e "=====================================================================" >> notes/potential-tries
+	echo -e "Try constantly:" >> notes/potential-tries
+	echo -e "---------------" >> notes/potential-tries
+	echo -e "\n\n" >> notes/potential-tries
+	echo -e "=====================================================================" >> notes/potential-tries
+	echo -e "Potential race conditions to try:" >> notes/potential-tries
+	echo -e "---------------------------------" >> notes/potential-tries
+	echo -e "\n\n" >> notes/potential-tries
+	echo -e "=====================================================================" >> notes/potential-tries
+	echo -e "Other stuff to try:" >> notes/potential-tries
+	echo -e "-------------------" >> notes/potential-tries
+	echo -e "\n\n" >> notes/potential-tries
+	echo -e "=====================================================================" >> notes/potential-tries
+	echo -e "Documentation:" >> notes/potential-tries
+	echo -e "--------------" >> notes/potential-tries
+	echo -e "\n\n" >> notes/potential-tries
+	echo -e "Github repos:" >> notes/potential-tries
+	echo -e "-------------" >> notes/potential-tries
+	echo -e "\n\n" >> notes/potential-tries
+	echo -e "=====================================================================" >> notes/potential-tries
+	echo -e "Interesting urls from recon:" >> notes/potential-tries
+	echo -e "----------------------------" >> notes/potential-tries
+	echo -e "\n\n" >> notes/potential-tries
+	echo -e "=====================================================================" >> notes/potential-tries
+	echo -e "known issues:" >> notes/potential-tries
+	echo -e "-------------" >> notes/potential-tries
+	echo -e "\n\n" >> notes/potential-tries
+	echo -e "=====================================================================" >> notes/potential-tries
+}
+
 # Extract nmap information
 function extractPorts(){
 	ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
