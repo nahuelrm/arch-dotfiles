@@ -25,7 +25,7 @@ git clone https://github.com/nahuelrm/hacking-toolsrc ~/tests/hacking-toolsrc
 sudo pacman -S python-setuptools
 git clone https://github.com/xnl-h4ck3r/xnLinkFinder.git ~/Desktop/stderr/repos/xnLinkFinder; cd ~/Desktop/stderr/repos/xnLinkFinder; sudo python setup.py install; cd
 
-alias xnlinkfinder='python3 /home/stderr/Desktop/stderr/repos/xnLinkFinder/xnLinkFinder.py' >> ~/.zshrc
+echo "alias xnlinkfinder='python3 /home/stderr/Desktop/stderr/repos/xnLinkFinder/xnLinkFinder.py'" >> ~/.zshrc
 
 sudo wget https://raw.githubusercontent.com/nahuelrm/web-screenshot/main/web-screenshot.sh -O /bin/web-screenshot && sudo chmod +x /bin/web-screenshot
 
