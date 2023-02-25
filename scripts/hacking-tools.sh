@@ -2,7 +2,7 @@
 
 # TODO: install jaeles and nuclei
 
-packages="httprobe amass findomain sublist3r subfinder gospider gowitness jq htmlq assetfinder feroxbuster ffuf masscan gau waybackurls"
+packages="httprobe amass findomain sublist3r subfinder gospider gowitness jq htmlq assetfinder feroxbuster ffuf masscan gau waybackurls whatwaf"
 
 sudo pacman -S --noconfirm $packages
 
