@@ -60,6 +60,10 @@ alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 alias cat='bat'
 alias catn='/bin/cat'
+alias copy='xclip -sel clip'
+alias image='kitty +kitten icat'
+alias graphw00f='python3 /home/stderr/Desktop/stderr/repos/graphw00f/main.py'
+alias exiftool='/home/stderr/Downloads/firefox/downloads/Image-ExifTool-12.56/exiftool'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -71,7 +75,7 @@ source /usr/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
 # Functions
 
 function mkt(){
-	mkdir {nmap,content,exploits,scripts}
+	mkdir {nmap,content,exploits}
 }
 
 function hclear() {
